@@ -90,6 +90,7 @@ function pautaDeAudiencia() {
   //Variável que de fato cria o calendário
   const calendario = CalendarApp.getCalendarById("c_77a2f281531b1f5e8ee14b04507d49dd8104eb1cee5de8af5ac0338fb4798b6e@group.calendar.google.com");
 
+  // Iterar pelos mediadores:
   for (var i = 0; i < mediadores.length; i++){
     var folga = Object.values(eval(mediadores[i].toLocaleLowerCase()).agosto);
     // Procurar cada dia:
@@ -97,6 +98,7 @@ function pautaDeAudiencia() {
       if (folga.every(testeDiaDiferente)){
         // Procurar cada hora:
         for(var y = 0; y < horario.length;y++){
+          // Iteração pelos mediadores dos eventos que não são dias de redesignação:
           if(redesignacao.every(testeDiaDiferente)){
             if(horario[y] == 14){
               var contar = dados.push((datasAgostoTarde[x] + ' ' + horario[y] + ' ' + mediadores[i]).toString());
@@ -121,6 +123,7 @@ function pautaDeAudiencia() {
               event.setColor("10");
             };
           }
+          // Iteração pelos mediadores nos eventos que são de redesignação (pintar de verde nos horários de mediação e amarelo para redesignar)
           else{
             if(horario[y] == 15){
               var event = calendario.createEvent('Redesignação'+titulo +mediadores[i],
@@ -145,7 +148,7 @@ function pautaDeAudiencia() {
       };
     };
   };
-
+// Iteração para as audiências extras em dias que não são de redesignação:
   for (var i = 0; i < extras.length; i++){
     // Procurar cada dia:
     for(var x = 0; x<datasAgostoTarde.length;x++){
@@ -175,6 +178,7 @@ function pautaDeAudiencia() {
               event.setColor("10");
           };
         }
+        // Iteração das audiências extras em dias que são com redesignação
         else{
           if(horario[y] == 15){
             var event = calendario.createEvent('Redesignação'+titulo +extras[i],
